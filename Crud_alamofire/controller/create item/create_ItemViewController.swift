@@ -12,24 +12,15 @@ import BSImagePicker
 import Photos
 
 class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedImages.count
-    }
+     
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cells = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCells", for: indexPath) as! CollectionViewCells
-        let data: UIImage = selectedImages[indexPath.item]
-        cells.images.image = data
-        return cells
-    }
-    
-    
+
     @IBOutlet weak var collectionView: UICollectionView!
   
    
     private var selectedImages: [UIImage] = []
 
-    var storedata:String?
+    var storedatass:String?
     var tokenstore : String = ""
     var dats = [itemmodel]()
     var imagess:UIImage?
@@ -43,7 +34,7 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
         super.viewDidLoad()
         titles.delegate = self
         descriptions.delegate = self
-  
+        print(storedatass)
     }
     
     @IBAction func button(_ sender: UIButton) {
@@ -85,13 +76,22 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
 
         let dataimage = selectedImages
         send_img(data_img: dataimage)
+      
+//        DispatchQueue.main.async { [self] in
+//            
+//            let storybrd = UIStoryboard(name: "Main", bundle: nil)
+//            let details:ViewController = storybrd.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+//            details.storedatass = storedatass
+//            self.navigationController?.pushViewController(details, animated: true)
+//        }
     }
     
    
     
     func send_img(data_img : [UIImage]?){
+        let token = UserDefaults.standard.string(forKey: "stateSelected")
   
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(storedata ?? "hello")","Content-type": "multipart/form-data"]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(token)","Content-type": "multipart/form-data"]
       
         let parameter:Parameters = ["title": titles.text!, "description": descriptions.text!]
        
@@ -151,6 +151,18 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
         })
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return selectedImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cells = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCells", for: indexPath) as! CollectionViewCells
+        let data: UIImage = selectedImages[indexPath.item]
+        cells.images.image = data
+        return cells
+    }
+   
     
     
     

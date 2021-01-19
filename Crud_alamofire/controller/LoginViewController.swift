@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     
     var getid:String?
-    var storedatas:String?
+    var storetoken:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
         
         
         
-        var result:String?
+//        var result:String?
         //let url = "http://adsumoriginator.com/apidemo/api/login"
         
         let parameter: Parameters = [
@@ -59,8 +59,8 @@ class LoginViewController: UIViewController {
                 
                 do {
                     let users = try JSONDecoder().decode(Json4Swift_Base.self, from: response.data!)
-                    self.storedatas = users.data?.token
-                
+                    self.storetoken = users.data?.token
+                    UserDefaults.standard.set(users.data?.token, forKey: "stateSelected")
                 } catch let error as NSError {
                     print("Failed to load: \(error.localizedDescription)")
                 }
@@ -74,31 +74,28 @@ class LoginViewController: UIViewController {
 //                //
 //                //    UserDefaults.standard.set(myJson,forKey: "storeData")
 //
-                let storybrd =
-                    UIStoryboard(name: "Main", bundle: nil)
+                let storybrd = UIStoryboard(name: "Main", bundle: nil)
                 let details:ViewController = storybrd.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                details.storedatas = storedatas
+                details.storetokens = storetoken    
                 self.navigationController?.pushViewController(details, animated: true)
 //
-            case .failure(let message):
+            case .failure(let data):
+                print()
                 do {
-                    
-                    let userss = try JSONDecoder().decode(Errormessage.self, from: response.data!)
-                    
-                    print(userss.message)
-                      let alert = UIAlertController(title: "message", message: "\(userss.message ?? "dfd")", preferredStyle: .alert)
+                   
+
+                      let alert = UIAlertController(title: "message", message: "Enter Right Username or Password", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { (_: UIAlertAction) in
-                        print("you are wrong!!")
+//                        print("\(userss.message)")
                     }))
-                    
+
                     self.present(alert, animated: true, completion: nil)
-                    
+
                 }catch{
-                    
-                    
+
+
                 }
-                
-                
+
                 print("need text")
             //                                    print("Request failed with error: \(data)")
             }

