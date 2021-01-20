@@ -61,7 +61,7 @@ class ViewController: UIViewController{
                 
                 self.getmodels.append(contentsOf: itemm.data!)
                 //                    self.getmodels.append(contentsOf: itemm.data)
-                                    self.tblViews.reloadData()
+                self.tblViews.reloadData()
                 
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
@@ -69,6 +69,8 @@ class ViewController: UIViewController{
         })
         
     }
+    
+    
     
     @IBAction func addItem(_ sender: UIButton) {
         let storybrd = UIStoryboard(name: "Main", bundle: nil)
@@ -96,9 +98,49 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("delete data")
+            let ids = getmodels[indexPath.row].id
+            let token = UserDefaults.standard.string(forKey: "stateSelected")
+            
+            let headers: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Content-type": "multipart/form-data"]
+            
+//            AF.request("https://adsumoriginator.com/apidemo/api/delete_item/\(indexPath.row)", method: .delete, parameters: nil,headers: headers).response(completionHandler:  {  (responses) in
+//                print(responses.result)
+//
+//            })
+
+            AF.request("https://adsumoriginator.com/apidemo/api/delete_item/\(ids!)", method: .delete, parameters: nil, headers: headers).validate(statusCode: 200 ..< 299).responseJSON { AFdata in
+                    do {
+                        guard let jsonObject = try JSONSerialization.jsonObject(with: AFdata.data!) as? [String: Any] else {
+                            print("Error: Cannot convert data to JSON object")
+                            return
+                        }
+                        guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
+                            print("Error: Cannot convert JSON object to Pretty JSON data")
+                            return
+                        }
+                        guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
+                            print("Error: Could print JSON in String")
+                            return
+                        }
+
+                        print(prettyPrintedJson)
+                        self.tblViews.reloadData()
+                    } catch {
+                        print("Error: Trying to convert JSON data to string")
+                        return
+                    }
+            }.resume()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+   
+    
     
     
 }
@@ -119,7 +161,7 @@ class tableCell:UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imgstr!.count 
-     }
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cells = collectionview.dequeueReusableCell(withReuseIdentifier: "collectioncell", for: indexPath) as! collectionviewsCell

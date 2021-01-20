@@ -91,7 +91,7 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
     func send_img(data_img : [UIImage]?){
         let token = UserDefaults.standard.string(forKey: "stateSelected")
   
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(token)","Content-type": "multipart/form-data"]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(token!)","Content-type": "multipart/form-data"]
       
         let parameter:Parameters = ["title": titles.text!, "description": descriptions.text!]
        
@@ -99,7 +99,6 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
             print(multipartFormData)
             
             for data in data_img! {
-//            if let  data = data_img {
                 guard let imgData = data.jpegData(compressionQuality: 1) else { return }
                        
                 multipartFormData.append(imgData, withName: "image[]", fileName: "image.jpeg", mimeType: "image/jpeg")
@@ -109,7 +108,7 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
                 multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
             }
         }, to:"https://adsumoriginator.com/apidemo/api/create_item", usingThreshold: UInt64.init(),method: .post, headers: headers).responseJSON
-        { [self] (response) in
+        {  (response) in
           
             switch response.result {
             case .success(let value) :
