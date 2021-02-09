@@ -61,6 +61,7 @@ class LoginViewController: UIViewController {
                     let users = try JSONDecoder().decode(Json4Swift_Base.self, from: response.data!)
                     self.storetoken = users.data?.token
                     UserDefaults.standard.set(users.data?.token, forKey: "stateSelected")
+                    
                 } catch let error as NSError {
                     print("Failed to load: \(error.localizedDescription)")
                 }

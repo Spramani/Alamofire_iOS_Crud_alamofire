@@ -185,7 +185,7 @@
                                 <rect key="frame" x="168.5" y="587" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <segue destination="wrf-bS-sxq" kind="presentation" modalPresentationStyle="overFullScreen" id="U1J-V3-aAd"/>
+                                    <segue destination="wrf-bS-sxq" kind="presentation" identifier="datashow" modalPresentationStyle="overFullScreen" id="U1J-V3-aAd"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQ7-Vb-SnC">
@@ -284,7 +284,7 @@
                                                 </label>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nNq-eg-lRy">
                                                     <rect key="frame" x="16" y="58" width="343" height="150"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="egg-IO-0tR"/>
                                                     </constraints>
@@ -304,6 +304,7 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="shP-JD-MtF">
                                                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="128" id="2k6-gy-gAb"/>
                                                                             <constraint firstAttribute="height" constant="128" id="5tV-Uf-NpK"/>
@@ -330,6 +331,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="MyX-Uf-eJ8" secondAttribute="trailing" constant="20" id="5dy-AY-D5v"/>
+                                                <constraint firstAttribute="bottom" secondItem="nNq-eg-lRy" secondAttribute="bottom" constant="10" id="DAe-2f-xy8"/>
                                                 <constraint firstItem="Dga-i0-BLP" firstAttribute="leading" secondItem="NM9-eb-iWx" secondAttribute="leading" constant="14" id="FJb-2k-7ey"/>
                                                 <constraint firstItem="Dga-i0-BLP" firstAttribute="top" secondItem="NM9-eb-iWx" secondAttribute="top" constant="5" id="ZKO-Sg-eNO"/>
                                                 <constraint firstItem="nNq-eg-lRy" firstAttribute="leading" secondItem="NM9-eb-iWx" secondAttribute="leadingMargin" id="ZQJ-Hb-jc8"/>

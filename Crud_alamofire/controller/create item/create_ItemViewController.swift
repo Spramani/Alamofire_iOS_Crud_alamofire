@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import BSImagePicker
 import Photos
 
@@ -21,8 +22,10 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
     private var selectedImages: [UIImage] = []
 
     var storedatass:String?
+    var indexValue:Int?
     var tokenstore : String = ""
     var dats = [itemmodel]()
+    var update = [Data]()
     var imagess:UIImage?
     
    
@@ -35,6 +38,62 @@ class create_ItemViewController: UIViewController,UITextFieldDelegate,UIImagePic
         titles.delegate = self
         descriptions.delegate = self
         print(storedatass)
+        geteditdata()
+	    }
+    
+    
+    func geteditdata() {
+        
+
+        let token = UserDefaults.standard.string(forKey: "stateSelected")
+        let ids = indexValue!
+        
+        
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Content-type": "multipart/form-data"]
+      
+        AF.request("https://adsumoriginator.com/apidemo/api/update_item_data/\(ids)", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers).responseJSON { [self] (response) in
+                    
+            
+                        do {
+                            self.titles.text = response.data?.description	
+                            
+                           // titles.text = response.data?.title
+                            let  datas = response.data!
+            
+                            let itemms = try! JSONDecoder().decode(updatedatas.self, from: datas)
+                            // let datas = itemm.data
+                            print(itemms)
+            
+            //
+//                            self.update.append(contentsOf: itemms.data!)
+            //                //                    self.getmodels.append(contentsOf: itemm.data)
+            //                self.tblViews.reloadData()
+            
+                        } catch let error as NSError {
+                            print("Failed to load: \(error.localizedDescription)")
+                        }
+                }
+
+//        AF.request("https://adsumoriginator.com/apidemo/api/update_item_data/\(ids)", method: .get, parameters: nil, encoding: URLEncoding.default,headers: headers, interceptor: nil, requestModifier: nil).response(completionHandler:  { [self] (responses) in
+//
+//
+//            do {
+//                let datas = responses.data!
+//
+//                let itemms = try! JSONDecoder().decode(itemmodel.self, from: datas)
+//                // let datas = itemm.data
+//                print(itemms)
+//
+////
+//                self.update.append(contentsOf: itemms.data!)
+////                //                    self.getmodels.append(contentsOf: itemm.data)
+////                self.tblViews.reloadData()
+//
+//            } catch let error as NSError {
+//                print("Failed to load: \(error.localizedDescription)")
+//            }
+//        })
+        
     }
     
     @IBAction func button(_ sender: UIButton) {

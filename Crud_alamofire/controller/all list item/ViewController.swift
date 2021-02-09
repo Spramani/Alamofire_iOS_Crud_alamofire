@@ -98,9 +98,10 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
     }
     
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("delete data")
+           
             let ids = getmodels[indexPath.row].id
             let token = UserDefaults.standard.string(forKey: "stateSelected")
             
@@ -127,22 +128,40 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                         }
 
                         print(prettyPrintedJson)
-                        self.tblViews.reloadData()
+                       
                     } catch {
                         print("Error: Trying to convert JSON data to string")
                         return
                     }
             }.resume()
+            self.tblViews.reloadData()
+            print("delete data")
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 250
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+     {
+         let editAction = UIContextualAction(style: .normal, title:  "Edit", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                 success(true)
+            
+            
+            let storybrd = UIStoryboard(name: "Main", bundle: nil)
+            let details:create_ItemViewController = storybrd.instantiateViewController(withIdentifier: "create_ItemViewController") as! create_ItemViewController
+            details.indexValue = self.getmodels[indexPath.row].id
+            self.navigationController?.pushViewController(details, animated: true)
+            
+            
+             })
+            editAction.backgroundColor = .blue
+
+             return UISwipeActionsConfiguration(actions: [editAction])
+     }
+    
    
-    
-    
-    
 }
 
 
@@ -162,6 +181,7 @@ class tableCell:UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imgstr!.count 
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cells = collectionview.dequeueReusableCell(withReuseIdentifier: "collectioncell", for: indexPath) as! collectionviewsCell
